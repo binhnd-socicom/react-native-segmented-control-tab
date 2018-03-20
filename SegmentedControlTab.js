@@ -73,8 +73,8 @@ const SegmentedControlTab = ({
     onTabPress,
 }) => {
 
-    const firstTabStyle = [{ borderRightWidth: values.length == 2 ? 1 : 0, borderTopLeftRadius: borderRadius, borderBottomLeftRadius: borderRadius }]
-    const lastTabStyle = [{ borderLeftWidth: 0, borderTopRightRadius: borderRadius, borderBottomRightRadius: borderRadius }]
+    const firstTabStyle = [{ borderTopLeftRadius: borderRadius, borderBottomLeftRadius: borderRadius }]
+    const lastTabStyle = [{ borderRightWidth: 1, borderTopRightRadius: borderRadius, borderBottomRightRadius: borderRadius }]
 
     return (
         <View
@@ -90,8 +90,8 @@ const SegmentedControlTab = ({
                             isTabActive={multiple ? selectedIndices.includes(index) : selectedIndex === index}
                             text={item}
                             onTabPress={(index) => handleTabPress(index, multiple, selectedIndex, onTabPress)}
-                            firstTabStyle={index === 0 ? [{ borderRightWidth: 0 }, firstTabStyle] : {}}
-                            lastTabStyle={index === values.length - 1 ? [{ borderLeftWidth: 0 }, lastTabStyle] : {}}
+                            firstTabStyle={index === 0 ? firstTabStyle : {}}
+                            lastTabStyle={index === values.length - 1 ? lastTabStyle : {}}
                             tabStyle={[tabStyle, index !== 0 && index !== values.length - 1 ? { marginLeft: -1 } : {}]}
                             activeTabStyle={activeTabStyle}
                             tabTextStyle={tabTextStyle}
@@ -152,11 +152,13 @@ const styles = StyleSheet.create({
     },
     tabStyle: {
         paddingVertical: 5,
+        paddingHorizontal: 2,
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         borderColor: '#0076FF',
         borderWidth: 1,
+        borderRightWidth: 0,
         backgroundColor: 'white',
     },
     activeTabStyle: {
